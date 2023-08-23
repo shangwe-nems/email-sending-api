@@ -1,18 +1,19 @@
-import nodemailer from "nodemailer";
-import {
-  generateContactAutomaticResponse,
+const nodemailer = require("nodemailer");
+const {
   generateContactEmail,
-} from "./generateContactEmail.js";
-import {
-  generateQuoteAutomaticResponse,
+  generateContactAutomaticResponse,
+} = require("./generateContactEmail");
+const {
   generateQuoteEmail,
-} from "./generateQuoteEmail.js";
+  generateQuoteAutomaticResponse,
+} = require("./generateQuoteEmail");
+require("dotenv").config();
 
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_HOST,
-  port: 465,
+  port: process.env.EMAIL_PORT,
   secure: true,
-  logger: true,
+  logger: false,
   debug: true,
   secureConnection: false,
   auth: {
@@ -24,10 +25,10 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-export const emailContact = async (_data) => {
+const emailContact = (_data) => {
   const options = {
     from: process.env.EMAIL_USER,
-    to: "shangwe.dev@gmail.com",
+    to: `cedricnyembwe@gmail.com, ${_data.email}`,
     subject: `Renseignements du client ${_data.full_name}`,
     html: generateContactEmail(_data),
   };
@@ -41,7 +42,7 @@ export const emailContact = async (_data) => {
   });
 };
 
-export const ContactAR = async (_data) => {
+const ContactAR = (_data) => {
   const options = {
     from: process.env.EMAIL_USER,
     to: _data.email,
@@ -58,10 +59,10 @@ export const ContactAR = async (_data) => {
   });
 };
 
-export const emailQuote = async (_data) => {
+const emailQuote = (_data) => {
   const options = {
     from: process.env.EMAIL_USER,
-    to: "shangwe.dev@gmail.com",
+    to: `cedricnyembwe@gmail.com, ${_data.email}`,
     subject: `Demande de Quotation du client ${_data.full_name}`,
     html: generateQuoteEmail(_data),
   };
@@ -75,7 +76,7 @@ export const emailQuote = async (_data) => {
   });
 };
 
-export const QuoteAR = async (_data) => {
+const QuoteAR = (_data) => {
   const options = {
     from: process.env.EMAIL_USER,
     to: _data.email,
@@ -83,7 +84,7 @@ export const QuoteAR = async (_data) => {
     html: generateQuoteAutomaticResponse(_data),
   };
 
-  return await transporter.sendMail(options, function (err, data) {
+  return transporter.sendMail(options, function (err, data) {
     if (err) {
       console.log(err);
     } else {
@@ -91,3 +92,5 @@ export const QuoteAR = async (_data) => {
     }
   });
 };
+
+module.exports = { emailContact, ContactAR, emailQuote, QuoteAR };

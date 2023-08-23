@@ -1,6 +1,6 @@
-import Mailgen from "mailgen";
+const Mailgen = require("mailgen");
 
-export const generateContactEmail = (data) => {
+const generateContactEmail = (data) => {
   const MailGenerator = new Mailgen({
     theme: "",
     product: {
@@ -18,39 +18,12 @@ export const generateContactEmail = (data) => {
       greeting: false,
       signature: false,
       intro: [
-        `<p style="font-size: 16px; font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;">Vous pouvez trouver les informations y afférentes ci-dessous :</p>`,
+        `<p style="font-size: 16px; font-family: Bahnschrift; font-weight: 400; color: #1a1a1a;">Nom complet: ${data.full_name}</p>`,
+        `<p style="font-size: 16px; font-family: Bahnschrift; font-weight: 400; color: #1a1a1a;">Email : ${data.email}</p>`,
+        `<p style="font-size: 16px; font-family: Bahnschrift; font-weight: 400; color: #1a1a1a;">Téléphone : ${data.phone}</p>`,
+        `<p style="font-size: 16px; font-family: Bahnschrift; font-weight: 400; color: #1a1a1a;">Ville : ${data.city}</p>`,
+        `<p style="font-size: 16px; font-family: Bahnschrift; font-weight: 400; color: #1a1a1a;">Message : ${data.message}</p>`,
       ],
-      table: {
-        data: [
-          {
-            description: "Nom complet :",
-            valeur: data.full_name,
-          },
-          {
-            descripion: "Adresse Email : ",
-            valeur: data.email,
-          },
-          {
-            description: "Numéro de téléphone :",
-            valeur: data.phone,
-          },
-          {
-            descripion: "Ville",
-            valeur: data.city,
-          },
-          {
-            description: "Message",
-            valeur: data.message,
-          },
-        ],
-        columns: {
-          // Optionally, customize the column widths
-          customWidth: {
-            description: "40%",
-            valeur: "60%",
-          },
-        },
-      },
     },
   };
 
@@ -59,7 +32,7 @@ export const generateContactEmail = (data) => {
   return mail;
 };
 
-export const generateContactAutomaticResponse = (data) => {
+const generateContactAutomaticResponse = (data) => {
   const MailGenerator = new Mailgen({
     theme: "",
     product: {
@@ -79,13 +52,13 @@ export const generateContactAutomaticResponse = (data) => {
       greeting: false,
       signature: false,
       intro: [
-        `<p style="font-size: 16px; font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;">
+        `<p style="font-size: 16px; font-family: Bahnschrift; font-weight: 400; color: #1a1a1a;">
           Nous vous remercions de l’intérêt accordé à notre entreprise et du temps pour la formulation de votre message.
         </p>`,
-        `<p style="font-size: 16px; font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;">
+        `<p style="font-size: 16px; font-family: Bahnschrift; font-weight: 400; color: #1a1a1a;">
           Sachez que ce dernier a été bien reçu et nous rentrerons en contact avec vous dans les plus brefs délais.
         </p>`,
-        `<p style="font-size: 16px; font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;">
+        `<p style="font-size: 16px; font-family: Bahnschrift; font-weight: 400; color: #1a1a1a;">
           Bien cordialement,       
         </p>`,
       ],
@@ -96,3 +69,5 @@ export const generateContactAutomaticResponse = (data) => {
 
   return mail;
 };
+
+module.exports = { generateContactEmail, generateContactAutomaticResponse };

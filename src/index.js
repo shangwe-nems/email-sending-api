@@ -1,8 +1,14 @@
-import bodyParser from "body-parser";
-import cookieParser from "cookie-parser";
-import cors from "cors";
-import express from "express";
-import { ContactAR, QuoteAR, emailContact, emailQuote } from "./sendEmail.js";
+const express = require("express");
+const cors = require("cors");
+
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+const {
+  ContactAR,
+  QuoteAR,
+  emailContact,
+  emailQuote,
+} = require("./sendEmail.js");
 
 const app = express();
 
@@ -32,7 +38,7 @@ app.post("/email/quote", async (req, res) => {
     const mail = await emailQuote(body);
     const ar = await QuoteAR(body);
     console.log("Mail :", { mail, ar });
-    return res.sendStatus(201);
+    return res.status(201).json({ message: "Email envoyé avec succés" });
   } catch (error) {
     console.log(error);
     return res.sendStatus(500);
@@ -43,10 +49,10 @@ app.post("/email/contact", async (req, res) => {
   const body = req.body;
 
   try {
-    // const mail = await emailContact(body);
+    const mail = await emailContact(body);
     const ar = await ContactAR(body);
-    // console.log("Mail :", { mail, ar });
-    return res.sendStatus(201);
+    console.log("Mail :", { mail, ar });
+    return res.status(201).json({ message: "Email envoyé avec succés" });
   } catch (error) {
     console.log(error);
     return res.sendStatus(500);

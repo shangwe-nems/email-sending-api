@@ -5,10 +5,10 @@
   "repository": "https://github.com/shangwe-nems/email-sending-api.git",
   "author": "shangwe-nems <shangwe.dev@gmail.com>",
   "license": "MIT",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "node src/index.js"
+    "start": "set NODE_ENV=prod&& node src/index.js",
+    "dev": "set NODE_ENV=dev&& node src/index.js"
   },
   "dependencies": {
     "body-parser": "^1.20.2",
