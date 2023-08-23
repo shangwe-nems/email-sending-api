@@ -28,7 +28,7 @@ const transporter = nodemailer.createTransport({
 const emailContact = (_data) => {
   const options = {
     from: process.env.EMAIL_USER,
-    to: `cedricnyembwe@gmail.com, ${process.env.EMAIL_USER}`,
+    to: `cedricnyembwe@gmail.com, ornellamuseme@nylservices.com, ${process.env.EMAIL_USER}`,
     subject: `Renseignements du client ${_data.full_name}`,
     html: generateContactEmail(_data),
   };
@@ -62,7 +62,7 @@ const ContactAR = (_data) => {
 const emailQuote = (_data) => {
   const options = {
     from: process.env.EMAIL_USER,
-    to: `cedricnyembwe@gmail.com, ${process.env.EMAIL_USER}`,
+    to: `cedricnyembwe@gmail.com, ornellamuseme@nylservices.com, ${process.env.EMAIL_USER}`,
     subject: `Demande de Quotation du client ${_data.full_name}`,
     html: generateQuoteEmail(_data),
   };
